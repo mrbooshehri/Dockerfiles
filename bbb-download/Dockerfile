@@ -1,10 +1,9 @@
 FROM ubuntu:latest
-RUN apt install python3 python3-pip python3-venv git
+RUN apt update
+RUN apt -y install python3 python3-pip python3-venv git
 WORKDIR /bbb
 RUN git clone https://github.com/fossasia/bbb-download .
 RUN python3 -m venv venv
-RUN source venv/bin/activate
 RUN pip install -r requirements.txt
 EXPOSE 8080
 VOLUME /bbb/presentation
-
