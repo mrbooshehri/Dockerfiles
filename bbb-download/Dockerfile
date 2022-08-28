@@ -1,8 +1,5 @@
-FROM ubuntu:latest
-RUN apt-get update \
- && apt-get -y install --no-install-recommands \
- python3 python3-pip python3-venv git \
- && rm -rf /var/lib/apt/lists/* 
+FROM python:3-alpine
+RUN apk add git
 WORKDIR /bbb
 RUN git clone https://github.com/fossasia/bbb-download . \
  && python3 -m venv venv \
