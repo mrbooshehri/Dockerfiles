@@ -1,14 +1,10 @@
-FROM alpine:latest
+FROM debian:bullseye-slim
 
-# Add repositories
-RUN echo -e "#https://nl.alpinelinux.org/alpine/v3.16/main\
-\n#https://nl.alpinelinux.org/alpine/v3.16/community\
-\nhttp://nl.alpinelinux.org/alpine/edge/main\
-\nhttp://nl.alpinelinux.org/alpine/edge/community\ 
-\nhttp://nl.alpinelinux.org/alpine/edge/testing" > /etc/apk/repositories
-# Install packages
-RUN apk update
-RUN apk add bash vim git tmux openssh openfortivpn openconnect networkmanager-l2tp \
-	pptpclient networkmanager-openvpn fzf; exit 0
-# Set CMD
+RUN apt-get -y update
+RUN apt-get -y install vim tmux python python3-pip openssh-client network-manager-fortisslvpn network-manager-l2tp \
+	network-manager-openvpn openconnect network-manager-pptp fzf net-tools curl sshpass telnet 
+RUN pip install chromaterm
+RUN curl https://raw.githubusercontent.com/mrbooshehri/cmd-fuzzy-ssh/master/fuzzy-ssh > /bin/fuzzy-ssh
+RUN chmod u+x /bin/fuzzy-ssh
+
 CMD ["/bin/bash"]
